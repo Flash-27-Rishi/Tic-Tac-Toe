@@ -22,7 +22,11 @@ public class TicTacToe {
      * an empty position. Students should focus on correct nested loop usage.
      */
     static void initializeBoard() {
-        // Method body is collapsed in the image
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                board[row][col] = '-';
+            }
+        }
     }
 
     /**
@@ -32,7 +36,12 @@ public class TicTacToe {
     static void printBoard() {
         System.out.println("-------------");
         for (int row = 0; row < 3; row++) {
-            // Loop body is collapsed in the image
+            System.out.print("| "); 
+            for (int col = 0; col < 3; col++) {
+                System.out.print(board[row][col] + " | ");
+            }
+            System.out.println();
+            System.out.println("-------------");
         }
     }
 }
