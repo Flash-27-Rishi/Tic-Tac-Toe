@@ -1,39 +1,41 @@
 /**
  * TicTacToe
- * UC4 converts a user-entered slot number (1-9) into corresponding
- * row and column indices of a 2D array.
+ * UC5 validates whether a move is inside the board boundaries
+ * and whether the selected cell is empty.
  */
 public class TicTacToe {
 
+    static char[][] board = {
+        {'-', '-', '-'},
+        {'-', '-', '-'},
+        {'-', '-', '-'}
+    };
+
     /**
-     * Entry point of the program. Demonstrates slot-to-index conversion
-     * using a sample slot value.
+     * Entry point of the program. Tests the validation logic
+     * using sample row and column values.
      */
     public static void main(String[] args) {
-        int slot = 7;
-        System.out.println("Row: " + getRowFromSlot(slot));
-        System.out.println("Column: " + getColFromSlot(slot));
+        System.out.println(isValidMove(1, 1));
     }
 
     /**
-     * Converts slot number into row index using zero-based indexing.
-     * Input: Slot number (1-9)
-     * Output: Row index (0-2)
+     * Checks if the given row and column are within bounds
+     * and if the target cell is empty.
+     * Input: Row, Column
+     * Output: true if valid, false otherwise.
      */
-    static int getRowFromSlot(int slot) {
-        // Subtracting 1 makes the slots 0-8. 
-        // Dividing by 3 groups them into rows 0, 1, and 2.
-        return (slot - 1) / 3;
-    }
-
-    /**
-     * Converts slot number into column index using modulo operation.
-     * Input: Slot number (1-9)
-     * Output: Column index (0-2)
-     */
-    static int getColFromSlot(int slot) {
-        // Subtracting 1 makes the slots 0-8. 
-        // Modulo 3 finds the remainder, which maps to columns 0, 1, and 2.
-        return (slot - 1) % 3;
+    static boolean isValidMove(int row, int col) {
+        // 1. Check if the row and column are within the valid 0-2 range
+        if (row >= 0 && row <= 2 && col >= 0 && col <= 2) {
+            
+            // 2. If they are within bounds, check if the cell is currently empty
+            if (board[row][col] == '-') {
+                return true; // The move is valid!
+            }
+        }
+        
+        // If it's out of bounds OR the cell is already taken, it's invalid
+        return false; 
     }
 }
