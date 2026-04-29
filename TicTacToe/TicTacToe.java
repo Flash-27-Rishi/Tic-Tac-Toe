@@ -1,41 +1,29 @@
 /**
  * TicTacToe
- * UC5 validates whether a move is inside the board boundaries
- * and whether the selected cell is empty.
+ * UC6 places a player's symbol on the board at the given position.
+ * This use case focuses on updating game state.
  */
 public class TicTacToe {
 
-    static char[][] board = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'}
-    };
+    static char[][] board = new char[3][3];
 
     /**
-     * Entry point of the program. Tests the validation logic
-     * using sample row and column values.
+     * Entry point of the program. Places a sample move
+     * and prints the updated cell value.
      */
     public static void main(String[] args) {
-        System.out.println(isValidMove(1, 1));
+        placeMove(0, 0, 'X');
+        System.out.println(board[0][0]);
     }
 
     /**
-     * Checks if the given row and column are within bounds
-     * and if the target cell is empty.
-     * Input: Row, Column
-     * Output: true if valid, false otherwise.
+     * Updates the board by placing the given symbol at
+     * the specified row and column.
+     * Input: Row, Column, Symbol
+     * Hint: Assume the move is already validated.
      */
-    static boolean isValidMove(int row, int col) {
-        // 1. Check if the row and column are within the valid 0-2 range
-        if (row >= 0 && row <= 2 && col >= 0 && col <= 2) {
-            
-            // 2. If they are within bounds, check if the cell is currently empty
-            if (board[row][col] == '-') {
-                return true; // The move is valid!
-            }
-        }
-        
-        // If it's out of bounds OR the cell is already taken, it's invalid
-        return false; 
+    static void placeMove(int row, int col, char symbol) {
+        // Place the player's symbol at the specified row and column
+        board[row][col] = symbol;
     }
 }
