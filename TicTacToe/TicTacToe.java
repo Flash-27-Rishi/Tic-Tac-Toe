@@ -1,52 +1,37 @@
 /**
  * TicTacToe
- * UC9 checks whether a player has won by examining
- * rows, columns, and diagonals.
+ * UC10 checks whether the game has ended in a draw
+ * by ensuring no empty cells remain on the board.
  */
 public class TicTacToe {
 
-    static char[][] board = new char[3][3];
+    static char[][] board = {
+        {'X', 'O', 'X'},
+        {'X', 'X', 'O'},
+        {'O', 'X', 'O'}
+    };
 
     /**
-     * Entry point of the program. Tests the win-check logic.
+     * Entry point of the program. Tests draw detection logic.
      */
     public static void main(String[] args) {
-        // Sample setup for testing
-        board[0][0] = 'X';
-        board[1][1] = 'X';
-        board[2][2] = 'X';
-
-        System.out.println("Has 'X' won? " + hasWon('X'));
+        System.out.println("Is the game a draw? " + isDraw());
     }
 
     /**
-     * Checks all possible winning patterns for the given symbol.
-     * Input: Player symbol
-     * Output: true if win detected.
+     * Traverses the board to check for any remaining empty cells.
+     * Output: true if draw, false otherwise.
      */
-    static boolean hasWon(char symbol) {
-        // Check rows
-        for (int i = 0; i < 3; i++) {
-            if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
-                return true;
+    static boolean isDraw() {
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                // If any cell is still empty, it's not a draw yet
+                if (board[r][c] == '-') {
+                    return false;
+                }
             }
         }
-
-        // Check columns
-        for (int j = 0; j < 3; j++) {
-            if (board[0][j] == symbol && board[1][j] == symbol && board[2][j] == symbol) {
-                return true;
-            }
-        }
-
-        // Check diagonals
-        if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
-            return true;
-        }
-        if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
-            return true;
-        }
-
-        return false;
+        // No empty cells found
+        return true;
     }
 }
