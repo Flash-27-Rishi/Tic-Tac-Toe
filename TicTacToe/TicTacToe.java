@@ -1,67 +1,39 @@
-import java.util.Random;
-
 /**
  * TicTacToe
- * UC7 allows the computer to make a random valid move
- * by reusing slot conversion and validation logic.
+ * UC8 controls the continuous game loop and alternates
+ * turns until the game ends.
  */
 public class TicTacToe {
 
-    static char[][] board = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'}
-    };
-    static char computerSymbol = 'O';
+    static boolean isHumanTurn = true;
+    static boolean gameOver = false;
 
     /**
-     * Entry point of the program. Triggers the computer move.
+     * Entry point of the program. Demonstrates the structure
+     * of a continuous game loop.
      */
     public static void main(String[] args) {
-        computerMove();
-    }
+        
+        System.out.println("--- Welcome to Tic-Tac-Toe ---");
 
-    /**
-     * Generates random slot values until a valid move is found,
-     * then places the computer symbol on the board.
-     */
-    static void computerMove() {
-        Random random = new Random();
-        int slot, row, col;
-
-        while (true) {
-            // Generate a random slot between 1 and 9
-            slot = random.nextInt(9) + 1; 
+        // The continuous game loop
+        while (!gameOver) {
             
-            // Reuse conversion logic (UC4)
-            row = getRowFromSlot(slot);
-            col = getColFromSlot(slot);
-
-            // Reuse validation logic (UC5)
-            if (isValidMove(row, col)) {
-                board[row][col] = computerSymbol;
-                System.out.println("Computer selected slot: " + slot);
-                break; // Exit the loop once a valid move is placed
+            if (isHumanTurn) {
+                System.out.println("\n[Human's Turn]");
+                // humanMove(); // Logic from UC3/UC6 would go here
+            } else {
+                System.out.println("\n[Computer's Turn]");
+                // computerMove(); // Logic from UC7 would go here
             }
+
+            // Alternating turns: flip the boolean
+            isHumanTurn = !isHumanTurn;
+
+            // Simple logic to prevent an infinite loop during testing
+            // In a real game, checkWin() or checkDraw() would set gameOver = true
+            gameOver = true; 
+            System.out.println("Turn cycle completed. Game Over set to true for demo.");
         }
-    }
-
-    // --- Helper methods from previous Use Cases ---
-
-    static int getRowFromSlot(int slot) {
-        return (slot - 1) / 3;
-    }
-
-    static int getColFromSlot(int slot) {
-        return (slot - 1) % 3;
-    }
-
-    static boolean isValidMove(int row, int col) {
-        if (row >= 0 && row <= 2 && col >= 0 && col <= 2) {
-            if (board[row][col] == '-') {
-                return true;
-            }
-        }
-        return false;
     }
 }
