@@ -1,39 +1,52 @@
 /**
  * TicTacToe
- * UC8 controls the continuous game loop and alternates
- * turns until the game ends.
+ * UC9 checks whether a player has won by examining
+ * rows, columns, and diagonals.
  */
 public class TicTacToe {
 
-    static boolean isHumanTurn = true;
-    static boolean gameOver = false;
+    static char[][] board = new char[3][3];
 
     /**
-     * Entry point of the program. Demonstrates the structure
-     * of a continuous game loop.
+     * Entry point of the program. Tests the win-check logic.
      */
     public static void main(String[] args) {
-        
-        System.out.println("--- Welcome to Tic-Tac-Toe ---");
+        // Sample setup for testing
+        board[0][0] = 'X';
+        board[1][1] = 'X';
+        board[2][2] = 'X';
 
-        // The continuous game loop
-        while (!gameOver) {
-            
-            if (isHumanTurn) {
-                System.out.println("\n[Human's Turn]");
-                // humanMove(); // Logic from UC3/UC6 would go here
-            } else {
-                System.out.println("\n[Computer's Turn]");
-                // computerMove(); // Logic from UC7 would go here
+        System.out.println("Has 'X' won? " + hasWon('X'));
+    }
+
+    /**
+     * Checks all possible winning patterns for the given symbol.
+     * Input: Player symbol
+     * Output: true if win detected.
+     */
+    static boolean hasWon(char symbol) {
+        // Check rows
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
+                return true;
             }
-
-            // Alternating turns: flip the boolean
-            isHumanTurn = !isHumanTurn;
-
-            // Simple logic to prevent an infinite loop during testing
-            // In a real game, checkWin() or checkDraw() would set gameOver = true
-            gameOver = true; 
-            System.out.println("Turn cycle completed. Game Over set to true for demo.");
         }
+
+        // Check columns
+        for (int j = 0; j < 3; j++) {
+            if (board[0][j] == symbol && board[1][j] == symbol && board[2][j] == symbol) {
+                return true;
+            }
+        }
+
+        // Check diagonals
+        if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
+            return true;
+        }
+        if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
+            return true;
+        }
+
+        return false;
     }
 }
